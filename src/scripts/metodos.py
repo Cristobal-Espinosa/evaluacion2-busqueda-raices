@@ -64,3 +64,41 @@ def secante(f, x0, x1, tol, max_iter):
         x0 = x1
         x1 = x_next
     return x1, pasos, False  # sin converger
+
+
+def biseccion(f, a, b, tol, max_iter):
+    pasos = []
+    if f(a) * f(b) >= 0:
+        return None, pasos, False  # no hay cambio de signo, no se puede aplicar
+    c_ant = a
+    for n in range(max_iter):
+        c = (a + b) / 2
+        paso = (n, c_ant, c, abs(c - c_ant))
+        pasos.append(paso)
+        if abs(f(c)) < tol or abs(c - c_ant) < tol:
+            return c, pasos, True
+        if f(a) * f(c) < 0:
+            b = c
+        else:
+            a = c
+        c_ant = c
+    return c, pasos, False  # sin converger
+
+
+def falsa_posicion(f, a, b, tol, max_iter):
+    pasos = []
+    if f(a) * f(b) >= 0:
+        return None, pasos, False  # no hay cambio de signo, no se puede aplicar
+    c_ant = a
+    for n in range(max_iter):
+        c = (a * f(b) - b * f(a)) / (f(b) - f(a))
+        paso = (n, c_ant, c, abs(c - c_ant))
+        pasos.append(paso)
+        if abs(f(c)) < tol or abs(c - c_ant) < tol:
+            return c, pasos, True
+        if f(a) * f(c) < 0:
+            b = c
+        else:
+            a = c
+        c_ant = c
+    return c, pasos, False  # sin converger
