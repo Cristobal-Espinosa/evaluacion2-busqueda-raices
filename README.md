@@ -1,0 +1,13 @@
+# La raíz que se esconde
+
+Laboratorio evaluado 2 de Computación Numérica (UCM). En este trabajo comparamos seis métodos para encontrar raíces (bisección, falsa posición, punto fijo, secante, Newton-Raphson y Newton mejorado) en seis funciones distintas: una polinómica, una con raíz doble, una logarítmica, una exponencial, una trigonométrica y una mixta. Usamos tolerancia 1e-6 y un máximo de 100 iteraciones.
+
+El repositorio tiene tres ramas: main, Cristobal-Espinosa y noah. El código está en la carpeta src/scripts, los archivos csv que se generan quedan en src/data y los gráficos en src/assets. Las respuestas del análisis están en informe.md.
+
+Para preparar el entorno, desde la carpeta del proyecto se crea el entorno virtual con `python -m venv venv`, se activa con `venv\Scripts\activate` (en Linux o Mac es `source venv/bin/activate`) y se instalan las librerías con `pip install -r requirements.txt`. Si PowerShell no deja activar el entorno, se soluciona con `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`.
+
+Los scripts se ejecutan con el entorno activo y en este orden, por ejemplo `python src\scripts\01_ambiente_controlado.py`: 01_ambiente_controlado.py, 02_punto_fijo.py, 03_newton.py, 04_secante.py, 05_cerrados.py, 06_resumen_convergencia.py y 07_graficos.py. El orden importa porque el 06 y el 07 usan los csv que generan los anteriores.
+
+El archivo funciones.py define las seis funciones con sus derivadas, la tolerancia, los intervalos y las raíces exactas para calcular el error. El archivo metodos.py tiene los seis métodos implementados. El script 01 muestra que cada función tiene una raíz en su intervalo (cambio de signo) y guarda un csv con los puntos (x, f(x)) de cada función. Los scripts 02, 03, 04 y 05 aplican los métodos a las seis funciones: el 02 punto fijo, el 03 Newton-Raphson y Newton mejorado, el 04 la secante y el 05 bisección y falsa posición. El 06 junta los resultados de todos los métodos en resumen_convergencia.csv, con las iteraciones, la raíz y el error, y el 07 hace los gráficos de cada función con su raíz, de convergencia (|error| contra iteración en escala logarítmica) y el resumen de iteraciones.
+
+En la función de raíz doble, bisección y falsa posición no se pueden aplicar porque no hay cambio de signo, así que en el resumen quedan con 0 iteraciones y nan. En los gráficos de convergencia un error igual a 0 se dibuja en 1e-17, porque en escala logarítmica no se puede graficar el 0.

@@ -1,0 +1,7 @@
+funcion,iteraciones,raiz,error,convergio
+polinomica,3,1.5213797068045603,7.327471962526033e-15,True
+raiz_doble,1,2.0,0.0,True
+logaritmica,4,2.926271062443501,0.0,True
+exponencial,3,0.5671432904097873,3.4416913763379853e-15,True
+trigonometrica,4,0.7390851332151607,0.0,True
+mixta,3,0.6417143708728811,1.5543122344752192e-15,True
