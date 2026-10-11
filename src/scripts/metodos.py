@@ -8,7 +8,7 @@ def punto_fijo(g, x0, tol, max_iter):
         if abs(x_next - x) < tol:
             return x_next, pasos
         x = x_next
-    return x, pasos  # sin converger
+    return x, pasos  
 
 
 def newton(f, df, x0, tol, max_iter):
@@ -16,7 +16,6 @@ def newton(f, df, x0, tol, max_iter):
     x = x0
     for n in range(max_iter):
         if df(x) == 0:
-            # tangente horizontal: solo sirve si ya estamos en la raiz
             if abs(f(x)) < tol:
                 return x, pasos, True
             return x, pasos, False
@@ -26,7 +25,7 @@ def newton(f, df, x0, tol, max_iter):
         if abs(x_next - x) < tol:
             return x_next, pasos, True
         x = x_next
-    return x, pasos, False  # sin converger
+    return x, pasos, False 
 
 
 def newton_mejorado(f, df, ddf, x0, tol, max_iter):
@@ -35,7 +34,6 @@ def newton_mejorado(f, df, ddf, x0, tol, max_iter):
     for n in range(max_iter):
         D = df(x)**2 - f(x) * ddf(x)
         if D == 0:
-            # no se puede dividir: solo sirve si ya estamos en la raiz
             if abs(f(x)) < tol:
                 return x, pasos, True
             return x, pasos, False
@@ -45,14 +43,13 @@ def newton_mejorado(f, df, ddf, x0, tol, max_iter):
         if abs(x_next - x) < tol:
             return x_next, pasos, True
         x = x_next
-    return x, pasos, False  # sin converger
+    return x, pasos, False  
 
 
 def secante(f, x0, x1, tol, max_iter):
     pasos = []
     for n in range(max_iter):
         if f(x1) - f(x0) == 0:
-            # no se puede dividir: solo sirve si ya estamos en la raiz
             if abs(f(x1)) < tol:
                 return x1, pasos, True
             return x1, pasos, False
@@ -63,13 +60,13 @@ def secante(f, x0, x1, tol, max_iter):
             return x_next, pasos, True
         x0 = x1
         x1 = x_next
-    return x1, pasos, False  # sin converger
+    return x1, pasos, False  
 
 
 def biseccion(f, a, b, tol, max_iter):
     pasos = []
     if f(a) * f(b) >= 0:
-        return None, pasos, False  # no hay cambio de signo, no se puede aplicar
+        return None, pasos, False  
     c_ant = a
     for n in range(max_iter):
         c = (a + b) / 2
@@ -82,13 +79,13 @@ def biseccion(f, a, b, tol, max_iter):
         else:
             a = c
         c_ant = c
-    return c, pasos, False  # sin converger
+    return c, pasos, False  
 
 
 def falsa_posicion(f, a, b, tol, max_iter):
     pasos = []
     if f(a) * f(b) >= 0:
-        return None, pasos, False  # no hay cambio de signo, no se puede aplicar
+        return None, pasos, False  
     c_ant = a
     for n in range(max_iter):
         c = (a * f(b) - b * f(a)) / (f(b) - f(a))
@@ -101,4 +98,4 @@ def falsa_posicion(f, a, b, tol, max_iter):
         else:
             a = c
         c_ant = c
-    return c, pasos, False  # sin converger
+    return c, pasos, False  
