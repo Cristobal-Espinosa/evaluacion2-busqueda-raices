@@ -25,12 +25,14 @@ for i in range(6):
     if nombres[i] == "raiz_doble":
         print("No hay cambio de signo (f(a)*f(b) > 0), Bolzano no se puede usar")
         print("Pero en x = 2: f(2) =", f(2.0), " f'(2) =", df(2.0), "-> la curva toca el eje x (raiz doble)")
-        print("Estimacion inicial para los metodos abiertos: x0 = 1.2")
     else:
         if f(a) * f(b) < 0:
             print("Hay cambio de signo, por Bolzano existe una raiz en [a, b]")
         else:
             print("OJO: no hay cambio de signo en este intervalo")
+    print("Estimacion inicial (abiertos): x0 =", x0_abiertos[i])
+    print("Secante: x0 =", x0_secante[i], " x1 =", x1_secante[i])
+    print("Punto fijo: g(x) =", formulas_g[i])
     print()
 
     # csv con columnas (x, f(x))
