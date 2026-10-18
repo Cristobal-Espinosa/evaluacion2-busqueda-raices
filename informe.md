@@ -75,6 +75,23 @@ Estos datos salen de `08_sensibilidad.py` (`sensibilidad_abiertos.csv` y `sensib
 - **Punto fijo:** solo si encontramos una g con |g'| < 1 cerca de la raíz. Con la g elegida convergió en todas las funciones, pero lento (hasta 34 iteraciones con el x₀ inicial), y el resultado depende mucho de la g.
 - **Raíz doble:** Newton mejorado.
 
+## Análisis cuantitativo y cualitativo
+
+**Cuantitativo (los números).** En las funciones con raíz simple, Newton y Newton mejorado necesitaron 3 o 4 iteraciones, la secante entre 4 y 7, la falsa posición entre 4 y 12, punto fijo entre 5 y 34 y bisección 19 o 20. En la raíz doble, Newton mejorado necesitó 1 iteración, Newton 20, la secante 27 y punto fijo 20 (con una g especial), y bisección y falsa posición no se pudieron aplicar.
+
+**Cualitativo (lo que pide cada método).**
+- Bisección solo necesita un intervalo con cambio de signo. No pide derivadas ni una g, y fue la más fácil de usar: la ejecutamos y listo.
+- Falsa posición pide lo mismo, pero es más sensible al intervalo: en la polinómica pasó de 12 a 51 iteraciones al hacerlo más ancho.
+- Punto fijo fue el más trabajoso de preparar, porque hay que despejar una g(x) distinta para cada función y comprobar que |g'| sea menor que 1. En la mixta tuvimos que usar x − 0.8·f(x) para que convergiera.
+- La secante no necesita derivadas, pero sí dos valores iniciales, y puede salirse del dominio de la función.
+- Newton necesita la derivada y un buen valor inicial. Newton mejorado necesita además la segunda derivada, o sea más álgebra, y también falló con algunos valores iniciales.
+
+**El mejor.** Newton mejorado, si se pueden calcular las derivadas y se parte cerca de la raíz: convergió en 3 o 4 iteraciones en las funciones con raíz simple y fue el único que resolvió la raíz doble en un solo paso. Si no hay derivadas a mano, elegiríamos la secante, y si necesitamos que funcione con seguridad, bisección.
+
+**El peor.** Punto fijo, porque fue el más lento (34 iteraciones en la trigonométrica) y el más difícil de armar. Además, en la raíz doble solo convergió cuando usamos una g que elimina la raíz doble con álgebra.
+
+**El que más nos llamó la atención.** Newton mejorado en la raíz doble: pasar de 20 iteraciones (Newton) a 1 solo cambiando la fórmula nos mostró que el método importa tanto como la función. También nos llamó la atención que punto fijo con la g original "convergió" en 1990 iteraciones según el criterio de parada, aunque la raíz todavía estaba a 0.002 de distancia. Eso nos hizo ver que parar cuando la diferencia entre dos iteraciones es menor que 1e-6 no garantiza que el error real sea pequeño.
+
 ## Conclusión
 
 Ningún método es el mejor en todo. Los que usan derivada (Newton y Newton mejorado) son los más rápidos, 3 o 4 iteraciones en las funciones con raíz simple, pero necesitan buenos valores iniciales: en nuestros datos fallaron cuando el primer paso se salió del dominio de la función. Bisección es lenta (unas 20 iteraciones) pero siempre convergió cuando hubo cambio de signo y casi no dependió de la función (19 o 20 iteraciones en todas). La secante quedó en un punto medio y la falsa posición es rápida en intervalos angostos pero se degrada en intervalos anchos. Por eso elegiríamos según el caso: Newton para funciones suaves con buen valor inicial, bisección cuando necesitamos garantía, y Newton mejorado para raíces múltiples.
