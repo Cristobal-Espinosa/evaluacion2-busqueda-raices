@@ -7,15 +7,6 @@ np.seterr(all="ignore")   # para que no avise cuando un metodo se sale del domin
 
 carpeta_data = os.path.join(os.path.dirname(__file__), "..", "data")
 
-# mismas g(x) del script 02 (punto fijo)
-def g1(x): return np.cbrt(x + 2)
-def g2(x): return (x**2 + 4) / 4
-def g3(x): return 4 - np.log(x)
-def g4(x): return np.exp(-x)
-def g5(x): return np.cos(x)
-def g6(x): return x - 0.8 * (np.sqrt(x) - np.cos(x))
-gs = [g1, g2, g3, g4, g5, g6]
-
 # distintos valores iniciales x0 para cada funcion (metodos abiertos)
 x0s = [[0.5, 1, 1.5, 2, 3],
        [0.5, 1.2, 1.9, 3, 5],
@@ -107,3 +98,26 @@ for i in range(6):
 archivo.close()
 
 print("CSV guardados en src/data/")
+
+# ---------- punto fijo en la raiz doble: dos g distintas ----------
+print()
+print("PUNTO FIJO EN LA RAIZ DOBLE (x0 = 1.2)")
+print()
+
+def g_original(x): return (x**2 + 4) / 4    # tiene |g'(2)| = 1
+
+casos = [["(x^2+4)/4", g_original, 100],
+         ["(x^2+4)/4", g_original, 5000],
+         ["(x+2)/2", gs[1], 100]]
+
+archivo = open(os.path.join(carpeta_data, "sensibilidad_punto_fijo_raiz_doble.csv"), "w")
+archivo.write("g,max_iter,iteraciones,convergio,error_real\n")
+for caso in casos:
+    raiz, pasos = punto_fijo(caso[1], np.float64(1.2), tol, caso[2])
+    convergio = pasos[-1][3] < tol
+    error_real = abs(raiz - 2.0)
+    print("g(x) =", caso[0], "| max_iter =", caso[2], "| iteraciones =", len(pasos), "| convergio =", convergio, "| error real =", error_real)
+    archivo.write(caso[0] + "," + str(caso[2]) + "," + str(len(pasos)) + "," + str(convergio) + "," + str(error_real) + "\n")
+archivo.close()
+print()
+print("CSV guardado en src/data/sensibilidad_punto_fijo_raiz_doble.csv")
