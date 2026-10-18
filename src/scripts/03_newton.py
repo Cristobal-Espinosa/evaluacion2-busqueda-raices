@@ -5,9 +5,6 @@ from metodos import newton, newton_mejorado
 
 carpeta_data = os.path.join(os.path.dirname(__file__), "..", "data")
 
-# estimacion inicial de cada funcion (la raiz doble parte en 1.2 como pide el enunciado)
-x0s = [1.5, 1.2, 2.5, 0.5, 0.5, 0.5]
-
 metodos_nombres = ["newton", "newton_mejorado"]
 
 for m in range(2):
@@ -22,7 +19,7 @@ for m in range(2):
         f = funciones[i]
         df = derivadas[i]
         ddf = derivadas2[i]
-        x0 = x0s[i]
+        x0 = x0_abiertos[i]
         raiz_real = raices[i]
 
         if m == 0:
@@ -44,9 +41,9 @@ for m in range(2):
         # pasos de esta funcion: n, x, |x - raiz| (para el grafico de convergencia)
         filas = []
         for p in pasos:
-            filas.append([p[0], p[2], abs(p[2] - raiz_real)])
+            filas.append([p[0], p[2], abs(p[2] - raiz_real), p[3]])
         ruta = os.path.join(carpeta_data, "pasos_" + nombre_metodo + "_" + nombres[i] + ".csv")
-        np.savetxt(ruta, np.array(filas), delimiter=",", header="n,x,error", comments="")
+        np.savetxt(ruta, np.array(filas), delimiter=",", header="n,x,error,dif", comments="")
 
         resumen.append([nombres[i], iteraciones, raiz, error, convergio])
 
