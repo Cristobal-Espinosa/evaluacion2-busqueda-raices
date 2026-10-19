@@ -1,7 +1,9 @@
 # Informe: La raíz que se esconde
 
 Laboratorio evaluado 2 de Computación Numérica.
+
 Integrantes: Cristóbal Espinosa y Steven Cifuentes.
+
 Repositorio: https://github.com/Cristobal-Espinosa/evaluacion2-busqueda-raices.git
 
 En este informe respondemos las preguntas de convergencia con los datos que salieron de nuestros scripts. Probamos seis métodos (bisección, falsa posición, punto fijo, secante, Newton-Raphson y Newton mejorado) en seis funciones, con tolerancia 1e-6 y un máximo de 100 iteraciones. Los datos están en `src/data/` y los gráficos en `src/assets/`.
